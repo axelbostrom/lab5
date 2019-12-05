@@ -6,7 +6,9 @@ public class WordQuiz {
 	public WordQuiz(Dictionary dictionary) {
 		dict = dictionary;
 	}
-	public void runMenu() throws IOException {
+	public void runMenu() throws IOException, NullPointerException {
+		InputStream is = new FileInputStream ("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
+		dict.load(is);
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Vänligen välj ett av alternativen nedan.");
 		int result = 0;
@@ -19,8 +21,6 @@ public class WordQuiz {
 			switch (result) {
 			case 1:
 				System.out.println("Gör dig redo!");
-				InputStream is = new FileInputStream ("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
-				dict.load(is);
 				runQuiz();
 				break;	
 			case 2:
@@ -37,16 +37,14 @@ public class WordQuiz {
 				System.out.println("Ordlistan är:" + words);
 				break;
 			case 4:
-				InputStream is2 = new FileInputStream ("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
-				dict.load(is2);
 				dict = dict.inverse();
-				OutputStream os2 = new FileOutputStream ("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
-				dict.save(os2);
 				runQuiz();
+				System.out.println("Kommer jag hit?");
+				dict = dict.inverse();
 				break;
 			case 5:
-				OutputStream os3 = new FileOutputStream ("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
-				dict.save(os3);
+				OutputStream os2 = new FileOutputStream ("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
+				dict.save(os2);
 				System.out.println("Hejdå :(");
 				System.exit(0);
 			default:
@@ -90,7 +88,6 @@ public class WordQuiz {
 			System.out.println("Du hade: " + fel + " fel och " + rätt + " rätt!");
 			System.out.println("Tillbaka till menyn!");
 			System.out.println("");
-			runMenu();
 		}
 			public static void main(String[] args) throws IOException {
 				// Skapa en tom ordlista på ngt sätt och fyll den med ord. Dictionary
@@ -105,7 +102,7 @@ public class WordQuiz {
 					System.out.println("1. Spela!");
 					System.out.println("2. Lägg till ord.");
 					System.out.println("3. Skriv ut hela ordlistan.");
-					System.out.println("4. Spela Invers!");
+					System.out.println("4. Spela invers!");
 					System.out.println("5. Spara och avsluta :(");
 				
 					try {

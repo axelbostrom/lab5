@@ -1,5 +1,15 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class Dictionary {
 		Map<Word,Set<Word>> map;
@@ -67,6 +77,9 @@ public class Dictionary {
 			add(words[0], words[1]);
 			}
 		}
+	catch(NullPointerException e) {
+		System.out.println("Ordlistan är tom.");
+	}
 	}
 	
 	/*** Lagrar ordlistan på den givna strömmen.
