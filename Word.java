@@ -15,12 +15,16 @@ public class Word {
 	}
 	
 	public boolean equals(Object obj){
-		if (obj instanceof Word) {
-			if (this.getText().equalsIgnoreCase(((Word)obj).getText()))
-				return true;
-			return false;
-		}
-		return false;	
+		
+		if(obj.toString().equals(this.text))	
+			return true;
+		return false;
+//		if (!(obj instanceof Word))
+//				return false;
+//		Word objWord = (Word) obj;
+//		if (this.hashCode() == objWord.hashCode()) {
+//			return true;
+//		}	
 	}
 	
 	public int hashCode(){

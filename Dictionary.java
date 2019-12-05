@@ -1,32 +1,43 @@
 import java.io.*;
 import java.util.*;
 
-/*** Denna klass modellerar en ordlista (Dictionary). En ordlista* associerar termer med betydelser. 
- * En term kan mappas till flera betydelser.* Både term och betydelse representeras med klassen Word.*/
-
 public class Dictionary {
-	
-	/*** Lägger till termen t till ordlistan med betydelsen m. Om termen 
-	 * redan  är tillagd med angiven betydelse händer ingenting.*/
-	public void add(Word t, Word m){
+		Map<Word,Set<Word>> map;
 		
+		public Dictionary() {
+			map = new HashMap<>();
+		}
+
+	public void add(Word t, Word m) {
+		if(map.containsKey(t)) {
+			Set<Word> existerandeBetydelser = map.get(t);
+			existerandeBetydelser.add(m);
+			return;
+		}
+		Set<Word> nyBetydelse = new HashSet<>();
+		nyBetydelse.add(m);
+		map.put(t, nyBetydelse);
 	}
 	
-	/*** Bekvämare sätt att anropa add för 2 strängar  än 
-	 * add(Word, Word).*/
-	
-	public void add(String t, String m){
-		
+	public void add(String t, String m) {
+		add(new Word(t), new Word(m));
 	}
 	/*** Returnerar en icke-null mängd med ordlistans alla termer.*/
 	
-	public Set<Word> terms(){
+	public Set<Word> terms() {
+		if (!map.isEmpty()) {
+			return map.keySet();	
+		}
+		return null;
 		
 	}/*** Slår upp och returnerar en mängd av betydelser till t, eller 
 	null om t inte finns i ordlistan.*/
 	
-	public Set<Word> lookup(Word t){
-		
+	public Set<Word> lookup(Word t) {
+		while (map.containsKey(t)) {
+			return map.get(t);
+		}
+		return null;
 	}
 	
 	/*** Skapar och returnerar en ny ordlista på det motsatta språket, dvs, alla
@@ -34,16 +45,44 @@ public class Dictionary {
 	 * T.ex. en* svensk-engelsk ordlista blir efter invertering engelsk-svensk.*/
 	
 	public Dictionary inverse() {
-		return null;
+		Dictionary inv = new Dictionary();
+		for(Word key : map.keySet()) {
+			for(Word term : lookup(key)) {
+				inv.add(term, key);
+			}
+		}
+		return inv;
 	}
 	
-	 /*** Läser in orden från den givna strömmen och lägger dessa i ordlistan.*/
+	 /*** Läser in orden från den givna strömmen och lägger dessa i ordlistan.
+	 * @throws IOException */
 	
-	public void load(InputStream is) {
+	public void load(InputStream is) throws IOException, FileNotFoundException {
+		
+	/// FIXA DETTA!!!!
+		
+		
+	//bufferreader	
+	is = new FileInputStream("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
+	try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+		while (reader.ready()) {
+			String line = reader.readLine();
+			String[] words = line.split(":");
+			add(words[0], words[1]);
+			}
+		}
 	}
 	
-	/*** Lagrar ordlistan på den givna strömmen.*/
+	/*** Lagrar ordlistan på den givna strömmen.
+	 * @throws IOException */
 	
-	​public void save(OutputStream os);
-	
+	public void save(OutputStream os) throws IOException {
+		OutputStreamWriter osnew = new OutputStreamWriter(os);
+		for(Word key : map.keySet()) {
+				for(Word value : map.get(key)) {
+					osnew.write(key + ":" + value + "\n");
+				}
+		}
+		osnew.close();
+	}
 }
