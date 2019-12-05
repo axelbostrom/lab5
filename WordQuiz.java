@@ -11,7 +11,7 @@ public class WordQuiz {
 		System.out.println("Vänligen välj ett av alternativen nedan.");
 		int result = 0;
 		
-		while (!(result == 5)) {
+		while (!(result == 6)) {
 			System.out.println();
 			System.out.println("======= Meny =======");
 			result = showMenu();
@@ -36,12 +36,19 @@ public class WordQuiz {
 				System.out.println("");
 				System.out.println("Ordlistan är:" + words);
 				break;
-				
 			case 4:
+				InputStream is2 = new FileInputStream ("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
+				dict.load(is2);
 				dict = dict.inverse();
+				OutputStream os2 = new FileOutputStream ("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
+				dict.save(os2);
 				runQuiz();
 				break;
-				
+			case 5:
+				OutputStream os3 = new FileOutputStream ("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
+				dict.save(os3);
+				System.out.println("Hejdå :(");
+				System.exit(0);
 			default:
 			System.out.println("Fel inmatning. Försök igen.");
 			}
@@ -99,6 +106,7 @@ public class WordQuiz {
 					System.out.println("2. Lägg till ord.");
 					System.out.println("3. Skriv ut hela ordlistan.");
 					System.out.println("4. Spela Invers!");
+					System.out.println("5. Spara och avsluta :(");
 				
 					try {
 						Scanner scan = new Scanner(System.in);

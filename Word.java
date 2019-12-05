@@ -9,7 +9,7 @@ public class Word {
 	public String getText() {
 		return text;
 	}
-
+	
 	public void setText(String text) {
 		this.text = text;
 	}
@@ -19,12 +19,6 @@ public class Word {
 		if(obj.toString().equals(this.text))	
 			return true;
 		return false;
-//		if (!(obj instanceof Word))
-//				return false;
-//		Word objWord = (Word) obj;
-//		if (this.hashCode() == objWord.hashCode()) {
-//			return true;
-//		}	
 	}
 	
 	public int hashCode(){

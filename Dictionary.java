@@ -58,10 +58,6 @@ public class Dictionary {
 	 * @throws IOException */
 	
 	public void load(InputStream is) throws IOException, FileNotFoundException {
-		
-	/// FIXA DETTA!!!!
-		
-		
 	//bufferreader	
 	is = new FileInputStream("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
 	try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
@@ -76,13 +72,12 @@ public class Dictionary {
 	/*** Lagrar ordlistan på den givna strömmen.
 	 * @throws IOException */
 	
-	public void save(OutputStream os) throws IOException {
+	public void save(OutputStream os) throws IOException, FileNotFoundException {
 		OutputStreamWriter osnew = new OutputStreamWriter(os);
 		for(Word key : map.keySet()) {
 				for(Word value : map.get(key)) {
 					osnew.write(key + ":" + value + "\n");
 				}
 		}
-		osnew.close();
 	}
 }
