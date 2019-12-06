@@ -39,7 +39,6 @@ public class WordQuiz {
 			case 4:
 				dict = dict.inverse();
 				runQuiz();
-				System.out.println("Kommer jag hit?");
 				dict = dict.inverse();
 				break;
 			case 5:

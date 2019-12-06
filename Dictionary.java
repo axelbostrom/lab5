@@ -40,7 +40,8 @@ public class Dictionary {
 		}
 		return null;
 		
-	}/*** Slår upp och returnerar en mängd av betydelser till t, eller 
+	}
+	/*** Slår upp och returnerar en mängd av betydelser till t, eller 
 	null om t inte finns i ordlistan.*/
 	
 	public Set<Word> lookup(Word t) {
@@ -77,20 +78,21 @@ public class Dictionary {
 			add(words[0], words[1]);
 			}
 		}
-	catch(NullPointerException e) {
-		System.out.println("Ordlistan är tom.");
-	}
+		catch(NullPointerException e) {
+			System.out.println("Ordlistan är tom.");
+		}
 	}
 	
 	/*** Lagrar ordlistan på den givna strömmen.
 	 * @throws IOException */
 	
 	public void save(OutputStream os) throws IOException, FileNotFoundException {
-		OutputStreamWriter osnew = new OutputStreamWriter(os);
+		OutputStreamWriter os2 = new OutputStreamWriter(os);
 		for(Word key : map.keySet()) {
 				for(Word value : map.get(key)) {
-					osnew.write(key + ":" + value + "\n");
+					os2.write(key + ":" + value + "\n");
 				}
 		}
+		os2.close();
 	}
 }
