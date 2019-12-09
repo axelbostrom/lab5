@@ -7,7 +7,7 @@ public class WordQuiz {
 		dict = dictionary;
 	}
 	public void runMenu() throws IOException, NullPointerException {
-		//Loads document
+		//s document
 		InputStream is = new FileInputStream ("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
 		dict.load(is);
 		Scanner scan = new Scanner(System.in);
@@ -46,8 +46,6 @@ public class WordQuiz {
 				break;
 			case 5:
 				//Saves and quits the game
-				OutputStream os2 = new FileOutputStream ("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
-				dict.save(os2);
 				System.out.println("Hejdå :(");
 				System.exit(0);
 			default:
@@ -112,7 +110,7 @@ public class WordQuiz {
 					System.out.println("2. Lägg till ord.");
 					System.out.println("3. Skriv ut hela ordlistan.");
 					System.out.println("4. Spela invers!");
-					System.out.println("5. Spara och avsluta :(");
+					System.out.println("5. Avsluta :(");
 				
 					try {
 						Scanner scan = new Scanner(System.in);

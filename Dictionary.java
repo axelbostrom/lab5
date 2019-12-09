@@ -1,15 +1,5 @@
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
 public class Dictionary {
 		Map<Word,Set<Word>> map;
@@ -68,18 +58,14 @@ public class Dictionary {
 	 /*** Läser in orden från den givna strömmen och lägger dessa i ordlistan.
 	 * @throws IOException */
 	
-	public void load(InputStream is) throws IOException, FileNotFoundException {
+	public void load(InputStream is) throws IOException, FileNotFoundException, NullPointerException, ArrayIndexOutOfBoundsException {
 	//bufferreader	
-	is = new FileInputStream("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
-	try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+//	is = new FileInputStream("/home/axebo861/eclipse-workspace/lab5/src/ordlista.txt");
+	BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		while (reader.ready()) {
 			String line = reader.readLine();
 			String[] words = line.split(":");
 			add(words[0], words[1]);
-			}
-		}
-		catch(NullPointerException e) {
-			System.out.println("Ordlistan är tom.");
 		}
 	}
 	
@@ -87,12 +73,12 @@ public class Dictionary {
 	 * @throws IOException */
 	
 	public void save(OutputStream os) throws IOException, FileNotFoundException {
-		OutputStreamWriter os2 = new OutputStreamWriter(os);
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os));
 		for(Word key : map.keySet()) {
 				for(Word value : map.get(key)) {
-					os2.write(key + ":" + value + "\n");
+					writer.write(key + ":" + value + "\n");
 				}
 		}
-		os2.close();
+		writer.close();
 	}
 }
